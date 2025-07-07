@@ -1,0 +1,179 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f0f2f5;
+  display: flex;
+}
+/* 現在のページ */
+.sidebar a.active {
+  background: none;
+  color: gray;
+  font-weight: normal;
+  pointer-events: none;
+  cursor: default;
+}
+/* メインエリア */
+.main {
+  margin-left: 0;
+  padding: 2rem;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  width: 100%;
+}
+
+.main.shifted {
+  margin-left: 200px;
+}
+
+/* ハンバーガーアイコン */
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+}
+
+/* 投稿エリア */
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button.post-btn {
+  background-color: #1da1f2;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.post {
+  background: #fff;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.like-section {
+  margin-top: 0.5rem;
+}
+
+.like-btn {
+  margin-top: 8px;
+  background-color: transparent;
+  border: none;
+  color: #e0245e;
+  font-size: 1em;
+  cursor: pointer;
+}
+.like-btn:hover {
+  text-decoration: underline;
+}
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.login-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container input {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.login-container button {
+  background: #1da1f2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode .main {
+  background-color: #1e1e1e;
+}
+
+/* サイドバーなども必要に応じて追加 */
+body.dark-mode .sidebar {
+  background-color: #222;
+}
+
+body.dark-mode .sidebar a {
+  color: #ccc;
+}
+
+body.dark-mode .sidebar a.active {
+  color: gray;
+}
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.post-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.sidebar-user {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-icon {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+.sidebar-username {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
