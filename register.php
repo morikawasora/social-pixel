@@ -47,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form method="post">
       <input type="text" name="username" placeholder="ユーザー名" required>
       <input type="password" name="password" placeholder="パスワード（6文字以上）" required>
+      <input type="password" name="password" placeholder="パスワード（6文字以上）" required>
+
       <button type="submit">登録</button>
     </form>
     <p style="color:red;"><?= htmlspecialchars($error) ?></p>
