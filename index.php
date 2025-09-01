@@ -165,7 +165,7 @@ $icon = !empty($user['icon']) ? 'uploads/' . htmlspecialchars($user['icon']) : '
 <div class="main" id="mainContent">
   <h1>投稿</h1>
   <form id="postForm" enctype="multipart/form-data">
-    <textarea id="postContent" rows="3" placeholder="いまなにしてる？" required></textarea>
+    <textarea id="postContent" rows="3" placeholder="いまなにしてる？"></textarea>
     <br>
     <input type="file" id="postMedia" name="media_files[]" accept="image/*,video/*" multiple>
     <br>
