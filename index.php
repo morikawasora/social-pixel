@@ -164,14 +164,14 @@ $icon = !empty($user['icon']) ? 'uploads/' . htmlspecialchars($user['icon']) : '
 <!-- メイン -->
 <div class="main" id="mainContent">
   <h1>投稿</h1>
-  <form id="postForm" enctype="multipart/form-data">
-    <textarea id="postContent" rows="3" placeholder="いまなにしてる？"></textarea>
-    <br>
-    <input type="file" id="postMedia" name="media_files[]" accept="image/*,video/*" multiple>
-    <br>
-    <button type="submit" class="post-btn">投稿</button>
-  </form>
-
+<form id="postForm" enctype="multipart/form-data">
+  <textarea id="postContent" rows="3" placeholder="いまなにしてる？"></textarea>
+  <br>
+  <input type="file" id="postMedia" name="media_files[]" accept="image/*,video/*" multiple>
+  <div id="mediaPreview" style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+  <br>
+  <button type="submit" class="post-btn">投稿</button>
+</form>
   <div id="timeline"></div>
 </div>
 
@@ -445,6 +445,74 @@ $icon = !empty($user['icon']) ? 'uploads/' . htmlspecialchars($user['icon']) : '
         }
       });
   }
+const mediaPreview = document.getElementById('mediaPreview');
+
+postMedia.addEventListener('change', () => {
+  mediaPreview.innerHTML = ''; // 前のプレビューをクリア
+
+  const files = Array.from(postMedia.files);
+  if (!files || files.length === 0) return;
+
+  files.forEach((file, index) => {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const url = URL.createObjectURL(file);
+
+    // プレビュー用のラッパー
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+
+    let mediaEl;
+    if (['jpg','jpeg','png','gif','bmp','webp'].includes(ext)) {
+      mediaEl = document.createElement('img');
+      mediaEl.src = url;
+      mediaEl.style.width = '100px';
+      mediaEl.style.height = '100px';
+      mediaEl.style.objectFit = 'cover';
+      mediaEl.style.borderRadius = '6px';
+    } else if (['mp4','mov','avi','wmv','flv','mkv'].includes(ext)) {
+      mediaEl = document.createElement('video');
+      mediaEl.src = url;
+      mediaEl.controls = true;
+      mediaEl.style.width = '150px';
+      mediaEl.style.height = '100px';
+      mediaEl.style.borderRadius = '6px';
+    }
+
+    // 削除ボタン
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '×';
+    removeBtn.style.position = 'absolute';
+    removeBtn.style.top = '2px';
+    removeBtn.style.right = '2px';
+    removeBtn.style.background = 'rgba(0,0,0,0.6)';
+    removeBtn.style.color = 'white';
+    removeBtn.style.border = 'none';
+    removeBtn.style.borderRadius = '50%';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.style.width = '20px';
+    removeBtn.style.height = '20px';
+    removeBtn.style.padding = '0';
+    removeBtn.addEventListener('click', () => {
+      files.splice(index, 1); // 選択ファイルから削除
+      updateFileList(files);  // inputのファイルリストを更新
+      wrapper.remove();       // プレビューから削除
+    });
+
+    wrapper.appendChild(mediaEl);
+    wrapper.appendChild(removeBtn);
+    mediaPreview.appendChild(wrapper);
+  });
+
+  updateFileList(files); // 初回も更新
+});
+
+// inputのFileListを更新する関数
+function updateFileList(files) {
+  const dataTransfer = new DataTransfer();
+  files.forEach(f => dataTransfer.items.add(f));
+  postMedia.files = dataTransfer.files;
+}
 </script>
 </body>
 </html>
